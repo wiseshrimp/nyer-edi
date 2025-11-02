@@ -4,11 +4,12 @@
  * Cover text overlay on top of interactive media with article title, byline, and dek
  */
 
-import { useMemo } from 'react'
+import { RefObject, useMemo } from 'react'
 import styles from './ArticleHeader.module.scss'
 import FacebookIcon from './icons/Facebook'
 import EmailIcon from './icons/Email'
 import TwitterIcon from './icons/Twitter'
+import { useGSAP } from '@gsap/react'
 
 type Props = {
     article: {
@@ -18,9 +19,23 @@ type Props = {
         Dek: string
         'Publish Date': string
     }
+    timeline: RefObject<gsap.core.Timeline | null> 
 }
 
 const ArticleHeader = (props: Props) => {
+    useGSAP(() => {
+        if (props.timeline?.current) {
+            props.timeline.current.to(
+                ".gsap__article-layer",
+                {
+                    y: "-70%",
+                    ease: "sine.inOut",
+                    duration: 1
+                },
+                .9
+            )
+        }
+    }, [props.timeline])
     return (
         <div
             className={`${styles.article__container} gsap__article-layer article-header`}>

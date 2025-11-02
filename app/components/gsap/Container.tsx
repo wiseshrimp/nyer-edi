@@ -14,6 +14,7 @@ import textJson from '@/app/assets/text/text.json'
 import styles from './Container.module.scss'
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ArticleBody from "../ArticleBody"
+import Spotlights from "./Spotlights"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,70 +22,38 @@ const GSAPContainer = () => {
     const timelineRef = useRef<gsap.core.Timeline | null>(null)
 
     useGSAP(() => {
-        // Main timeline
         const timeline = gsap.timeline({
             scrollTrigger: {
-                trigger: '.gsap__background', // Wrapper holding background and article cover header
-                endTrigger: '.article__body', // Ends at article body text
+                trigger: '.gsap__background', // Wrapper holding all of the moving elements
+                endTrigger: '.article__body', // Ends at the beginning of article body text
                 start: 'top top',
-                end: '+=450%',
-                scrub: 1,
+                end: '+=500%', // Scroll 5x to get to the end
+                scrub: 2,
                 pin: true,
-                pinSpacing: true,
+                pinSpacing: true
             }
         })
 
         timelineRef.current = timeline
-
-        timeline.to(
-            ".gsap__cloud-layer",
-            {
-                y: "-20vh",
-                ease: "sine.inOut",
-                duration: 1
-            },
-            .9
-        )
-
-        timeline.to(
-            ".gsap__article-layer",
-            {
-                y: "-70%",
-                ease: "sine.inOut",
-                duration: 1
-            },
-            .9
-        )
-
-        timeline.to(
-            ".gsap__stars-layer",
-            {
-                y: "-40%",
-                ease: "sine.inOut",
-                duration: 1
-            },
-            .9
-        )
-        timeline.to(
-            ".gsap__background-layer",
-            {
-                y: "-30%",
-                ease: "linear",
-                duration: 1
-            },
-            .9
-        )
     }, [])
 
     return (
         <div className={styles.container}>
+            {/* GSAP Pinned Component */}
             <div
-                className={'gsap__background'}>
-                <Background />
-                <Clouds />
+                className="gsap__background">
+                <Spotlights
+                    timeline={timelineRef} />
+                <Background
+                    timeline={timelineRef} />
+                <Clouds 
+                    timeline={timelineRef} />
                 <ArticleHeader
+                    timeline={timelineRef}
                     article={{ ...textJson }} />
             </div>
+
+            {/* Article Text – Unpins header */}
             <ArticleBody
                 body={textJson['Introduction']} />
         </div>
