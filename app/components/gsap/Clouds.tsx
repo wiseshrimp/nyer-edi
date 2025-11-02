@@ -15,18 +15,18 @@ const Clouds = () => {
         <div
             key={`cloud_${idx}`}
             className={clsx(cloudStyles.cloud, cloudStyles[`cloud__${idx}`])}>
-            <div
-                className={cloudStyles.cloud__image}
-                style={{backgroundImage: `url(/images/cloud_0${idx + 1}.webp)`}} />
+                <div
+                    className={cloudStyles.cloud__image} // Class defines width, height, and position
+                    style={{backgroundImage: `url(/images/cloud_0${idx + 1}.webp)`}} />
         </div>
     )
 
     return (
-        <div
-            className={gsapStyles.gsap__container}
-            id="gsap__clouds">
-                {/* Render all of the cloud images in images/ */}
-                {(new Array(CLOUD_COUNT)).fill('').map(renderCloud)} 
+        <div 
+            className={`${gsapStyles.gsap__component} gsap__cloud-layer`}>
+
+            {/* Render all of the cloud images in images/ */}
+            {(new Array(CLOUD_COUNT)).fill('').map(renderCloud)} 
         </div>
     )
 }

@@ -23,26 +23,30 @@ type Props = {
 const ArticleHeader = (props: Props) => {
     return (
         <div
-            className={styles.article__container}>
-                <div
-                    className={styles.article__header}>
+            className={`${styles.article__container} gsap__article-layer article-header`}>
+            <div
+                className={styles.article__header}>
+                    {/* Rubric */}
                     <h6
                         className={styles.rubric}>
                         {props.article.Rubric}
                     </h6>
 
+                    {/* Title */}
                     <h1
                         className={styles.title}>
                         {/* To do: Separate articles */}
                         {props.article.Headline}
                     </h1>
 
+                    {/* Dek */}
                     <div
                         className={styles.dek}>
                         {props.article.Dek}
                     </div>
 
 
+                    {/* Date + Byline */}
                     <div>
                         <div
                             className={styles.byline}>
@@ -52,9 +56,9 @@ const ArticleHeader = (props: Props) => {
                             className={styles.date}>
                             {props.article['Publish Date']}
                         </div>
-
-
                     </div>
+
+                    {/* Icons */}
                     <div className={styles.icon__container}>
                         <div className={styles.icon}>
                             <FacebookIcon />
@@ -66,8 +70,7 @@ const ArticleHeader = (props: Props) => {
                             <EmailIcon />
                         </div>
                     </div>
-                    {/* Icons */}
-                </div>
+            </div>
         </div>
     )
 }
