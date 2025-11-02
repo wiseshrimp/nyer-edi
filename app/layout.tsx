@@ -1,5 +1,5 @@
 import "./styles/global.scss"
-import { irvinFont } from "./lib/fonts";
+import { adobeCaslonPro, graphikFont, irvinFont, neutrafaceFont } from "./lib/fonts"
 
 export default function RootLayout({
   children,
@@ -9,7 +9,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body 
-        className={`${irvinFont.variable}`}>
+        className={`
+          ${irvinFont.variable} 
+          ${neutrafaceFont.variable}
+          ${adobeCaslonPro.variable}
+          ${graphikFont.variable}
+        `}>
         {children}
       </body>
     </html>
