@@ -1,7 +1,19 @@
+.article__container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+}
+
 .article__header {
     height: 581px;
     width: 448px;
     padding: 32px;
+    margin: auto;
 
     border: 2px solid white;
     font-family: var(--Irvin);

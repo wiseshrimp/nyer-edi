@@ -1,7 +1,7 @@
 /**
  * ArticleHeader.tsx
  * 
- * Cover overlay on top of interactive with article title, byline, and dek
+ * Cover text overlay on top of interactive media with article title, byline, and dek
  */
 
 import { useMemo } from 'react'
@@ -23,48 +23,51 @@ type Props = {
 const ArticleHeader = (props: Props) => {
     return (
         <div
-            className={styles.article__header}>
-            <h6
-                className={styles.rubric}>
-                {props.article.Rubric}
-            </h6>
-
-            <h1
-                className={styles.title}>
-                {/* To do: Separate articles */}
-                {props.article.Headline}
-            </h1>
-
-            <div
-                className={styles.dek}>
-                {props.article.Dek}
-            </div>
-
-
-            <div>
+            className={styles.article__container}>
                 <div
-                    className={styles.byline}>
-                    {props.article.Byline}
-                </div>
-                <div
-                    className={styles.date}>
-                    {props.article['Publish Date']}
-                </div>
+                    className={styles.article__header}>
+                    <h6
+                        className={styles.rubric}>
+                        {props.article.Rubric}
+                    </h6>
+
+                    <h1
+                        className={styles.title}>
+                        {/* To do: Separate articles */}
+                        {props.article.Headline}
+                    </h1>
+
+                    <div
+                        className={styles.dek}>
+                        {props.article.Dek}
+                    </div>
 
 
-            </div>
-            <div className={styles.icon__container}>
-                <div className={styles.icon}>
-                    <FacebookIcon />
+                    <div>
+                        <div
+                            className={styles.byline}>
+                            {props.article.Byline}
+                        </div>
+                        <div
+                            className={styles.date}>
+                            {props.article['Publish Date']}
+                        </div>
+
+
+                    </div>
+                    <div className={styles.icon__container}>
+                        <div className={styles.icon}>
+                            <FacebookIcon />
+                        </div>
+                        <div className={styles.icon}>
+                            <TwitterIcon />
+                        </div>
+                        <div className={styles.icon}>
+                            <EmailIcon />
+                        </div>
+                    </div>
+                    {/* Icons */}
                 </div>
-                <div className={styles.icon}>
-                    <TwitterIcon />
-                </div>
-                <div className={styles.icon}>
-                    <EmailIcon />
-                </div>
-            </div>
-            {/* Icons */}
         </div>
     )
 }
