@@ -19,13 +19,13 @@ type Props = {
         Dek: string
         'Publish Date': string
     }
-    timeline: RefObject<gsap.core.Timeline | null> 
+    timeline: gsap.core.Timeline | null
 }
 
 const ArticleHeader = (props: Props) => {
     useGSAP(() => {
-        if (props.timeline?.current) {
-            props.timeline.current.to(
+        if (props.timeline) {
+            props.timeline.to(
                 ".gsap__article-layer",
                 {
                     y: "-70%",
@@ -38,26 +38,29 @@ const ArticleHeader = (props: Props) => {
     }, [props.timeline])
     return (
         <div
-            className={`${styles.article__container} gsap__article-layer article-header`}>
+            className={
+                `${styles.article__container} 
+                gsap__article-layer article-header`
+            }>
             <div
                 className={styles.article__header}>
                     {/* Rubric */}
                     <h6
                         className={styles.rubric}>
-                        {props.article.Rubric}
+                            {props.article.Rubric}
                     </h6>
 
                     {/* Title */}
                     <h1
                         className={styles.title}>
                         {/* To do: Separate articles */}
-                        {props.article.Headline}
+                            {props.article.Headline}
                     </h1>
 
                     {/* Dek */}
                     <div
                         className={styles.dek}>
-                        {props.article.Dek}
+                            {props.article.Dek}
                     </div>
 
 
@@ -65,11 +68,11 @@ const ArticleHeader = (props: Props) => {
                     <div>
                         <div
                             className={styles.byline}>
-                            {props.article.Byline}
+                                {props.article.Byline}
                         </div>
                         <div
                             className={styles.date}>
-                            {props.article['Publish Date']}
+                                {props.article['Publish Date']}
                         </div>
                     </div>
 

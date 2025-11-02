@@ -9,11 +9,11 @@ import styles from './Background.module.scss'
 import { RefObject } from "react"
 import { useGSAP } from "@gsap/react"
 
-const Background = (props: { timeline: RefObject<gsap.core.Timeline | null> }) => {
+const Background = (props: { timeline: gsap.core.Timeline | null }) => {
     useGSAP(() => {
-        if (props.timeline?.current) {
+        if (props.timeline) {
             // Scroll star layer (faster)
-            props.timeline.current.to(
+            props.timeline.to(
                 ".gsap__stars-layer",
                 {
                     y: "-40%",
@@ -24,7 +24,7 @@ const Background = (props: { timeline: RefObject<gsap.core.Timeline | null> }) =
             )
 
             // Scro;l sky background layer (slower)
-            props.timeline.current.to(
+            props.timeline.to(
                 ".gsap__background-layer",
                 {
                     y: "-30%",

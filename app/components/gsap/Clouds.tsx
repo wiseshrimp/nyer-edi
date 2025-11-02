@@ -10,14 +10,13 @@ import gsapStyles from './Container.module.scss'
 import { RefObject } from 'react'
 import { useGSAP } from '@gsap/react'
 
-const Clouds = (props: { timeline: RefObject<gsap.core.Timeline | null> }) => {
+const Clouds = (props: { timeline: gsap.core.Timeline | null }) => {
     const CLOUD_COUNT = 8
     
     useGSAP(() => {
-        if (props.timeline?.current) {
-
+        if (props.timeline) {
             // Scroll cloud layer very slowly, doesn't completely disappear on screen
-            props.timeline.current.to(
+            props.timeline.to(
                 ".gsap__cloud-layer",
                 {
                     y: "-20vh",

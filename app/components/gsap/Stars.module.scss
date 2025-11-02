@@ -1,4 +1,6 @@
 .stars__image {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
+    background: url('/images/stars.png');
+    background-repeat: repeat;
 }

@@ -9,22 +9,21 @@ import styles from './Spotlights.module.scss'
 import { RefObject, useEffect, useRef } from "react"
 import { useGSAP } from "@gsap/react"
 
-const Spotlights = (props: { timeline: RefObject<gsap.core.Timeline | null> }) => {
+const Spotlights = (props: { timeline: gsap.core.Timeline | null }) => {
     useGSAP(() => {
-        if (props.timeline?.current) {
+        if (props.timeline) {
             /* 
                 Left Spotlight
                     Starting Position: 0deg
                     Ending Position: 55deg
             */
-            props.timeline.current.fromTo(
+            props.timeline.fromTo(
                 "#spotlight__left",
                 {
                     rotation: 0
                 },
                 {
-                    keyframes: [ 
-                        // Oscillates between invisible => visible => invisible
+                    keyframes: [ // Oscillates between invisible => visible => invisible
                         {
                             rotation: 55,
                             ease: "sine.out",
@@ -45,7 +44,7 @@ const Spotlights = (props: { timeline: RefObject<gsap.core.Timeline | null> }) =
                     Starting position: 360deg
                     Ending position: 305deg
             */
-            props.timeline.current.fromTo(
+            props.timeline.fromTo(
                 "#spotlight__right",
                 { rotation: 360 },
                 {

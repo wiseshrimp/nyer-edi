@@ -7,10 +7,8 @@ const Stars = () => {
     return (
         <div
             className={`${gsapStyles.gsap__component}`}>
-            <img
-                className={`gsap__stars-layer ${styles.stars__image}`}
-                alt='White stars'
-                src='/images/stars.png' />
+            <div
+                className={`gsap__stars-layer ${styles.stars__image}`} />
         </div>
     )
 }

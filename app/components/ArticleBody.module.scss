@@ -1,0 +1,39 @@
+.article__body {
+    font-size: var(--body-font-size);
+    line-height: var(--body-line-height);
+    font-family: var(--Adobe-Caslon-Pro);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    max-width: 968px;
+    padding: 100px;
+    width: 100%;
+    border: 1.5px solid white;
+    top: -50vh;
+    position: relative;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+
+    p {
+        margin: 0;
+    }
+
+    @media (max-width: 1024px) {
+        padding: 80px;
+        gap: 40px;
+        border: 0px;
+    }
+
+    @media (max-width: 768px) {
+        top: -40vh;
+        padding: 32px;
+        gap: 32px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 32px;
+        gap: 24px;
+        border-width: 1px;
+    }
+}

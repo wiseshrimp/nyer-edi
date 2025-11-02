@@ -6,7 +6,7 @@
  */
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import ArticleHeader from '../ArticleHeader'
 import Background from './Background'
 import Clouds from './Clouds'
@@ -19,10 +19,10 @@ import Spotlights from "./Spotlights"
 gsap.registerPlugin(ScrollTrigger);
 
 const GSAPContainer = () => {
-    const timelineRef = useRef<gsap.core.Timeline | null>(null)
+    const [timeline, setTimeline] = useState<gsap.core.Timeline | null>(null)
 
     useGSAP(() => {
-        const timeline = gsap.timeline({
+        const gsapTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: '.gsap__background', // Wrapper holding all of the moving elements
                 endTrigger: '.article__body', // Ends at the beginning of article body text
@@ -33,8 +33,7 @@ const GSAPContainer = () => {
                 pinSpacing: true
             }
         })
-
-        timelineRef.current = timeline
+        setTimeline(gsapTimeline)
     }, [])
 
     return (
@@ -43,19 +42,19 @@ const GSAPContainer = () => {
             <div
                 className="gsap__background">
                 <Spotlights
-                    timeline={timelineRef} />
+                    timeline={timeline} />
                 <Background
-                    timeline={timelineRef} />
+                    timeline={timeline} />
                 <Clouds 
-                    timeline={timelineRef} />
+                    timeline={timeline} />
                 <ArticleHeader
-                    timeline={timelineRef}
+                    timeline={timeline}
                     article={{ ...textJson }} />
             </div>
-
             {/* Article Text – Unpins header */}
             <ArticleBody
                 body={textJson['Introduction']} />
+
         </div>
     )
 }

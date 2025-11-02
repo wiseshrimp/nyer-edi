@@ -10,3 +10,13 @@
     --body-font-size: 28px;
     --body-line-height: 39px;
 }
+
+@media screen and (max-width: 600px) {
+    * {
+        --h1-font-size: 30px;
+        --h1-line-height: 36px;
+
+        --body-font-size: 21px;
+        --body-line-height: 30px;
+    }
+}
