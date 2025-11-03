@@ -46,6 +46,7 @@ http://localhost:3000
 - **Star Animation**: I wanted to do something extra / play around, so I implemented a version of the star animation in the reference video. Instead of the reference video which flickered the stars using what looks to be rotating objects, I faded in/out areas of the image
 
 ## Technical Improvements (Future Work)
+- **Responsiveness**: Not fully responsive to extra small and extra large screens.
 - **Animations**: The transition scroll animation between the header and body text is a little jolty, since the GSAP scroll and browser window scroll are operating at different speeds. With more time, I would smooth out the transition between the two.
 - **Image Optimizations**: The images are already small, but the pngs could be exported as webp files to save space. Also, the cloud images are all separate and could be a single file, unless the designers wanted to purposefully stagger them for different screen sizes.
 - **Star Animation Optimization**: The current star animation currently renders frame-by-frame. I'm sure that there is a better way to do this – perhaps by interpolating between a couple pre-rendered textures?
