@@ -1,3 +1,4 @@
+'use client'
 /**
  * 
  * Article text that stops GSAP interactive scroll
@@ -9,10 +10,12 @@ import styles from './ArticleBody.module.scss'
 const ArticleBody = (props: {body: string}) => {
     const bodyRef = useRef<HTMLDivElement | null>(null)
     useEffect(() => {
+
         if (bodyRef?.current) {
             bodyRef.current.style.setProperty('opacity', '1')
         }
     }, [])
+
     return (
         <div 
             ref={bodyRef}

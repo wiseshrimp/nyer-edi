@@ -22,6 +22,7 @@ const GSAPContainer = () => {
     const [timeline, setTimeline] = useState<gsap.core.Timeline | null>(null)
 
     useGSAP(() => {
+        // GSAP timeline and pin container to top
         const gsapTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: '.gsap__background', // Wrapper holding all of the moving elements
@@ -51,9 +52,6 @@ const GSAPContainer = () => {
                     timeline={timeline}
                     article={{ ...textJson }} />
             </div>
-            {/* Article Text – Unpins header */}
-            <ArticleBody
-                body={textJson['Introduction']} />
 
         </div>
     )

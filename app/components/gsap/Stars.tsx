@@ -1,6 +1,9 @@
-import { useGSAP } from '@gsap/react';
+/**
+ * Stars.tsx
+ * 
+ * Renders star background layer – tiles the image so the stars don't get stretched out
+ */
 import gsapStyles from './Container.module.scss'
-import gsap from 'gsap'
 import styles from './Stars.module.scss'
 
 const Stars = () => {

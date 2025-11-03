@@ -37,6 +37,15 @@
 
 .title {
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 0.35em;
+
+    :global(.smaller) {
+        flex-basis: 100%;
+        font-size: var(--h2-font-size);
+    }
 }
 
 .dek {

@@ -60,12 +60,15 @@ const Spotlights = (props: { timeline: gsap.core.Timeline | null }) => {
     return (
         <div
             className={`gsap__spotlight-layjr ${styles.spotlight__container}`}>
+            {/* Left Spotlight */}
             <div
                 className={clsx(styles.spotlight, styles.left)}>
                 <img
                     id="spotlight__left"
                     src="/images/light.png" />
             </div>
+
+            {/* Right Spotlight */}
             <div
                 className={clsx(styles.spotlight, styles.right)}>
                 <img

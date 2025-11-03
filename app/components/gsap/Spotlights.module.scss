@@ -8,7 +8,7 @@
 
 .spotlight {
     position: absolute;
-    height: calc(60vw + 100vh);  /* scales with viewport */
+    height: calc(60vw + 100vh);
     transform-origin: bottom;
     z-index: 5;
     pointer-events: none;

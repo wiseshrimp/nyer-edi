@@ -2,6 +2,7 @@
     --h1-font-size: 48px;
     --h1-line-height: 58px;
 
+    --h2-font-size: 23px;
 
     --h5-font-size: 14px;
 
@@ -11,12 +12,18 @@
     --body-line-height: 39px;
 }
 
+@media screen and (max-width: 768px) {
+    * {
+        --body-font-size: 21px;
+        --body-line-height: 30px;
+    }
+}
+
 @media screen and (max-width: 600px) {
     * {
         --h1-font-size: 30px;
         --h1-line-height: 36px;
 
-        --body-font-size: 21px;
-        --body-line-height: 30px;
+        --h2-font-size: 18px;
     }
 }

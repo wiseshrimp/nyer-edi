@@ -4,12 +4,13 @@
  * Cover text overlay on top of interactive media with article title, byline, and dek
  */
 
-import { RefObject, useMemo } from 'react'
+import React, { RefObject, useMemo } from 'react'
 import styles from './ArticleHeader.module.scss'
 import FacebookIcon from './icons/Facebook'
 import EmailIcon from './icons/Email'
 import TwitterIcon from './icons/Twitter'
 import { useGSAP } from '@gsap/react'
+import { parseTitle } from '../utils/parseTitle'
 
 type Props = {
     article: {
@@ -23,6 +24,8 @@ type Props = {
 }
 
 const ArticleHeader = (props: Props) => {
+    const title = useMemo(() => parseTitle(props.article?.Headline), [props.article?.Headline])
+
     useGSAP(() => {
         if (props.timeline) {
             props.timeline.to(
@@ -54,7 +57,7 @@ const ArticleHeader = (props: Props) => {
                     <h1
                         className={styles.title}>
                         {/* To do: Separate articles */}
-                            {props.article.Headline}
+                            {title.map((el, idx) => <React.Fragment key={`title-${idx}`}>{el}</React.Fragment>)}
                     </h1>
 
                     {/* Dek */}

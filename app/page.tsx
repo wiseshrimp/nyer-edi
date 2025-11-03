@@ -1,4 +1,3 @@
-import ArticleHeader from "./components/ArticleHeader";
 import textJson from '@/app/assets/text/text.json'
 import GSAPContainer from "./components/gsap/Container";
 import ArticleBody from "./components/ArticleBody";
@@ -8,9 +7,9 @@ export default function Home() {
   return (
     <div>
       <Logo />
-      <div>
-        <GSAPContainer />
-      </div>
+      <GSAPContainer />
+      <ArticleBody
+        body={textJson['Introduction']} />
     </div>
   )
 }

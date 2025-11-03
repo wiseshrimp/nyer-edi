@@ -23,7 +23,7 @@ const Background = (props: { timeline: gsap.core.Timeline | null }) => {
                 .9
             )
 
-            // Scro;l sky background layer (slower)
+            // Scroll sky background layer (slower)
             props.timeline.to(
                 ".gsap__background-layer",
                 {

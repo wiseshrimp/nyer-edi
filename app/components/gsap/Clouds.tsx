@@ -15,11 +15,11 @@ const Clouds = (props: { timeline: gsap.core.Timeline | null }) => {
     
     useGSAP(() => {
         if (props.timeline) {
-            // Scroll cloud layer very slowly, doesn't completely disappear on screen
+            // Scroll cloud layer very slowly compared to other images
             props.timeline.to(
                 ".gsap__cloud-layer",
                 {
-                    y: "-20vh",
+                    y: "-20vh", // Doesn't completely disappear off screen
                     ease: "sine.inOut",
                     duration: 1
                 },
