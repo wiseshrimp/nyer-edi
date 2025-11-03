@@ -8,6 +8,7 @@ import Stars from "./Stars"
 import styles from './Background.module.scss'
 import { RefObject } from "react"
 import { useGSAP } from "@gsap/react"
+import StarsAnimated from "./StarsAnimated"
 
 const Background = (props: { timeline: gsap.core.Timeline | null }) => {
     useGSAP(() => {
@@ -44,7 +45,7 @@ const Background = (props: { timeline: gsap.core.Timeline | null }) => {
                 alt='Night sky gradient from black, maroon, to purple'
                 src='/images/background.png' />
             
-            <Stars />
+            <StarsAnimated />
         </div>
     )
 }
