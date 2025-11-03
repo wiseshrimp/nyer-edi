@@ -1,3 +1,9 @@
+/**
+ * 
+ * Preload font files
+ * 
+ */
+
 import localFont from "next/font/local"
 
 export const adobeCaslonPro = localFont({

@@ -40,33 +40,39 @@ const StarsAnimated = () => {
     const tileCanvasRef = useRef<HTMLCanvasElement | null>(null)
     const visibleCanvasRef = useRef<HTMLCanvasElement | null>(null)
     const rafRef = useRef<number>(null) // requestAnimationFrame reference – keeps track whether currently drawing on canvas or not (if the canvas is out of view, pause)
-    
+
     const imgRef = useRef<HTMLImageElement | null>(null)
     const starsRef = useRef<StarType[] | null>(null)
 
     const isVisibleRef = useRef(true)
 
-    useEffect(() => {
-        // Create intersection observer: Stop requestAnimationFrame loop if the star canvas is out of view
-        const canvas = visibleCanvasRef.current
-        if (canvas) {
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    const entry = entries[0]
-                    isVisibleRef.current = entry.isIntersecting
-                    
-                    if (entry.isIntersecting && rafRef.current === null) { // Becomes visible again
-                        draw()
-                    }
-                },
-                {
-                    root: null,
-                    threshold: 0
+    // Check whether star canvas is in view => Stop drawing if out of view
+    useGSAP(() => {
+        const scroll = ScrollTrigger.create({
+            trigger: ".gsap__stars-layer",
+            start: "top+=300 bottom",
+            end: "bottom+=400% top",
+            onEnter: () => {
+                isVisibleRef.current = true
+                if (!rafRef?.current) {
+                    draw()
                 }
-            )
-            observer.observe(canvas)
-            return () => observer.disconnect()
-        }
+            },
+            onEnterBack: () => {
+                isVisibleRef.current = true
+                if (!rafRef?.current) {
+                    draw()
+                }
+            },
+            onLeave: () => {
+                isVisibleRef.current = false
+            },
+            onLeaveBack: () => {
+                isVisibleRef.current = false
+            },
+        })
+
+        return () => scroll.kill()
     }, [])
 
     useEffect(() => {
@@ -125,16 +131,15 @@ const StarsAnimated = () => {
     }
 
     const draw = () => {
-        // Not visible
-        if (!isVisibleRef?.current) {
+        if (!isVisibleRef?.current) { // Not visible in frame => Stop drawing
             rafRef.current = null
             return
         }
 
         const canvas = tileCanvasRef.current,
-                visibleCanvas = visibleCanvasRef.current,
-                img = imgRef.current,
-                stars = starsRef.current
+            visibleCanvas = visibleCanvasRef.current,
+            img = imgRef.current,
+            stars = starsRef.current
 
         if (!canvas || !img || !stars || !visibleCanvas) {
             rafRef.current = requestAnimationFrame(draw)
@@ -150,16 +155,16 @@ const StarsAnimated = () => {
         }
 
         const now = performance.now()
-        tileCtx.clearRect(0, 0, img.width, img.height)
         
         // Draw tile canvas
+        tileCtx.clearRect(0, 0, img.width, img.height)
         tileCtx.drawImage(img, 0, 0, img.width, img.height)
         tileCtx.save()
         tileCtx.globalCompositeOperation = 'destination-out'
 
-        // Remove areas of the tile canvas image
+        // Remove areas of the tile canvas image in predefined areas
         for (const star of stars) {
-            // Reassign change values
+            // Reassign nextChange values
             if (now > star.nextChange) {
                 star.nextChange = now + Math.random() * 1500
                 const toBrighten = Math.random() < 0.5 // Brighten or darken?
@@ -167,18 +172,25 @@ const StarsAnimated = () => {
                 star.ease = Math.random() * 0.3
             }
 
-            // Lerp toward target value
+            // Lerp toward target alpha value
             star.alpha += (star.target - star.alpha) * star.ease
             tileCtx.fillStyle = "green"
 
+            
+            {/*
+                Debugging :)
+                tileCtx.globalAlpha = 1
+                tileCtx.globalCompositeOperation = 'source-over'
+                
+            */}
+                
+            // "Cut out" part of star image with alpha
             tileCtx.globalAlpha = 1 - star.alpha
-            // tileCtx.globalAlpha = 1 // Debugging :) 
-            // tileCtx.globalCompositeOperation = 'source-over' // Debugging :) 
             tileCtx.beginPath()
             tileCtx.fillRect(star.x, star.y, star.r * 2, star.r * 2)
         }
 
-        // Reset tileCtx for next loop
+        // Reset tileCtx settings
         tileCtx.restore()
         tileCtx.globalAlpha = 1
         tileCtx.globalCompositeOperation = 'source-over'
@@ -201,11 +213,11 @@ const StarsAnimated = () => {
         <div>
             {/* Tile Canvas (hidden) */}
             <canvas
-                style={{display: 'none'}}
+                style={{ display: 'none' }}
                 ref={tileCanvasRef} />
 
             {/* Visible Canvas with Tile Pattern */}
-            <canvas 
+            <canvas
                 className={`${styles.stars__canvas} gsap__stars-layer`}
                 ref={visibleCanvasRef} />
         </div>

@@ -8,6 +8,7 @@
  * @param title Title string (e.g. "The Art of the Hollywood Memoir")
  * @returns An array of JSX nodes ready to render (e.g. [<span>The Art</span>, <span className="smalller">of the</span>])
  */
+
 import { JSX } from "react"
 
 const ARTICLES = new Set(["of", "the", "to", "and", "in", "for", "at", "on"])

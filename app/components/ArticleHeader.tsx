@@ -24,6 +24,7 @@ type Props = {
 }
 
 const ArticleHeader = (props: Props) => {
+    // Format title to use smaller text for articles of speech
     const title = useMemo(() => parseTitle(props.article?.Headline), [props.article?.Headline])
 
     useGSAP(() => {
@@ -39,6 +40,7 @@ const ArticleHeader = (props: Props) => {
             )
         }
     }, [props.timeline])
+    
     return (
         <div
             className={
