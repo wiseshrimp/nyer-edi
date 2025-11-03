@@ -39,9 +39,35 @@ const STAR_POSITIONS: StarPos[] = [
 const StarsAnimated = () => {
     const tileCanvasRef = useRef<HTMLCanvasElement | null>(null)
     const visibleCanvasRef = useRef<HTMLCanvasElement | null>(null)
+    const rafRef = useRef<number>(null) // requestAnimationFrame reference – keeps track whether currently drawing on canvas or not (if the canvas is out of view, pause)
     
     const imgRef = useRef<HTMLImageElement | null>(null)
     const starsRef = useRef<StarType[] | null>(null)
+
+    const isVisibleRef = useRef(true)
+
+    useEffect(() => {
+        // Create intersection observer: Stop requestAnimationFrame loop if the star canvas is out of view
+        const canvas = visibleCanvasRef.current
+        if (canvas) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    const entry = entries[0]
+                    isVisibleRef.current = entry.isIntersecting
+                    
+                    if (entry.isIntersecting && rafRef.current === null) { // Becomes visible again
+                        draw()
+                    }
+                },
+                {
+                    root: null,
+                    threshold: 0
+                }
+            )
+            observer.observe(canvas)
+            return () => observer.disconnect()
+        }
+    }, [])
 
     useEffect(() => {
         // Load star image
@@ -99,13 +125,19 @@ const StarsAnimated = () => {
     }
 
     const draw = () => {
-        const   canvas = tileCanvasRef.current,
+        // Not visible
+        if (!isVisibleRef?.current) {
+            rafRef.current = null
+            return
+        }
+
+        const canvas = tileCanvasRef.current,
                 visibleCanvas = visibleCanvasRef.current,
                 img = imgRef.current,
                 stars = starsRef.current
 
         if (!canvas || !img || !stars || !visibleCanvas) {
-            requestAnimationFrame(draw)
+            rafRef.current = requestAnimationFrame(draw)
             return
         }
 
@@ -113,7 +145,7 @@ const StarsAnimated = () => {
         const visibleCtx = visibleCanvas.getContext('2d')
 
         if (!tileCtx || !visibleCtx) {
-            requestAnimationFrame(draw)
+            rafRef.current = requestAnimationFrame(draw)
             return
         }
 
@@ -162,7 +194,7 @@ const StarsAnimated = () => {
             visibleCtx.fillRect(0, 0, width, height)
         }
 
-        requestAnimationFrame(draw)
+        rafRef.current = requestAnimationFrame(draw)
     }
 
     return (
